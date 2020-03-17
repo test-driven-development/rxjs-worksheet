@@ -1,9 +1,16 @@
-import "./styles.css";
+async function searchWikipedia() {
+  const url =
+    'https://en.wikipedia.org/w/api.php?action=query&' +
+    'format=json&origin=*&list=search&srsearch=Terminator'
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use Parcel to bundle this sandbox, you can find more info about Parcel
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+  const response = await fetch(url)
+  if (response && response.status >= 200 && response.status < 400) {
+    const data = await response.json()
+    const result = data.query.search.map(s => s.title)
+    console.log(JSON.stringify(result))
+  } else {
+    console.log('error')
+  }
+}
+
+searchWikipedia()
