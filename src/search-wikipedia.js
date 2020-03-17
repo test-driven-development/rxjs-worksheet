@@ -6,6 +6,5 @@ export async function searchWikipedia() {
 
   const response = await fetch(url)
   const data = await response.json()
-  const result = data.query.search.map(s => s.title)
-  console.log(JSON.stringify(result))
+  return data.query.search.map(s => s.title)
 }
